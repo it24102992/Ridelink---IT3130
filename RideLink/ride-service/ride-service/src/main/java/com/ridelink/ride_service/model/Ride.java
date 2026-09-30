@@ -1,7 +1,8 @@
 package com.ridelink.ride_service.model;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 // Bound directly from the request body on creation (see RideController) -
 // this service has no separate DTO layer for that endpoint, so the
@@ -9,29 +10,23 @@ import jakarta.validation.constraints.NotBlank;
 // here instead. Only client-supplied fields are constrained - passengerId,
 // driverId and status are set by the server after binding, never by the
 // client, so they carry no @NotBlank/@NotNull of their own.
-@Entity
-@Table(name = "rides")
+@Document(collection = "rides")
 public class Ride {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @NotBlank(message = "passengerName is required")
-    @Column(nullable = false)
     private String passengerName;
     // The authenticated requester's account id (from the JWT), captured at
     // ride-creation time. Used to identify the payer when this ride is
     // completed and forwarded to fare-payment-service's payment record.
-    @Column(nullable = false)
     private String passengerId;
 
     @NotBlank(message = "pickup is required")
-    @Column(nullable = false)
     private String pickup;
 
     @NotBlank(message = "destination is required")
-    @Column(nullable = false)
     private String destination;
 
     private String driverId;
