@@ -1,4 +1,11 @@
 package com.ridelink.ride_service.repository;
 
-public interface RideRepository {
+import com.ridelink.ride_service.model.Ride;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface RideRepository extends JpaRepository<Ride, String> {
+    java.util.List<Ride> findByPassengerIdOrderByIdDesc(String passengerId);
+    java.util.List<Ride> findByDriverIdOrderByIdDesc(String driverId);
 }
