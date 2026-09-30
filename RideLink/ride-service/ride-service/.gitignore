@@ -1,0 +1,15 @@
+target/
+
+# Maven wrapper downloads
+.mvn/wrapper/maven-wrapper.jar
+
+# Java
+*.class
+
+# Logs
+*.log
+
+# IDE files
+.idea/
+.vscode/
+*.iml
